@@ -21,4 +21,8 @@
     <ProjectReference Include="..\BlazorShop.Models\BlazorShop.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
