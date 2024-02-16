@@ -15,7 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(opitons => {
 
 // A cada requisição uma Instancia é criada, usando AddScoped
 // Se quisesse sempre a mesms intancia, usariamos AddSngleton
-builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>(); 
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
 var app = builder.Build();
 
@@ -25,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
