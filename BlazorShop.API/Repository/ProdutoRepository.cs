@@ -15,27 +15,22 @@ namespace BlazorShop.API.Repository
             _context = context;
         }
 
-        public async Task<Produto> GetItem(int Id)
-        {
-            var produto = await _context.Produtos
-                                        .Include(c => c.Categoria)
-                                        .SingleOrDefaultAsync(c => c.Id == Id);
-            return produto;
-        }
+        public async Task<Produto> GetItem(int Id) => await 
+                                    _context.Produtos
+                                   .Include(c => c.Categoria)
+                                   .SingleOrDefaultAsync(c => c.Id == Id);
+        
 
-        public async Task<IEnumerable<Produto>> GetItens()
-        {
-            var produto = await _context.Produtos.ToListAsync();
-            return produto;
-        }
+        public async Task<IEnumerable<Produto>> GetItens() => await 
+                                                 _context.Produtos
+                                                .Include(c => c.Categoria)
+                                                .ToListAsync();
 
-        public async Task<IEnumerable<Produto>> GetItensPorCategoria(int id) { 
 
-            var produto = await 
-                        _context.Produtos.SingleOrDefaultAsync(c => c.Id == id);
-            return (IEnumerable<Produto>)produto;
-            
-                                        
-        }
+        public async Task<IEnumerable<Produto>> GetItensPorCategoria(int id) => await
+                                                _context.Produtos
+                                                .Include(c => c.Categoria)
+                                                .Where(p => p.CategoriaId == id)
+                                                .ToListAsync();
     }
 }
