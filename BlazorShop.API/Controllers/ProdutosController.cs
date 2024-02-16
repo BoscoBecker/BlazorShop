@@ -44,8 +44,8 @@ namespace BlazorShop.API.Controllers
             }
             catch (Exception)
             {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao Obter Lista de produtos pelo id."); ;
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+                throw;
             }
 
            
