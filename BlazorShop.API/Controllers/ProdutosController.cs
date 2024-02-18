@@ -12,6 +12,7 @@ namespace BlazorShop.API.Controllers
     public class ProdutosController : ControllerBase
     {
         private readonly IProdutoRepository _produtoRepository;
+
         public ProdutosController(IProdutoRepository produtoRepository) => _produtoRepository = produtoRepository;
 
         [HttpGet]
@@ -72,10 +73,5 @@ namespace BlazorShop.API.Controllers
             }
         
         }
-
-
-
-
-
     }
 }
