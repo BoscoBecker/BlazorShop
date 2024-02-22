@@ -22,7 +22,7 @@ namespace BlazorShop.API.Controllers
             {
                 var produtos = await _produtoRepository.GetItens();
                 if (produtos is null)
-                    return NotFound();
+                    return Ok("[]");
                 else
                     return Ok(produtos.ConvertProdutoToDTO());
             }

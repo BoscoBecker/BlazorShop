@@ -19,6 +19,10 @@ namespace BlazorShop.API.Mappings
 
         }
 
+        public static async Task<CategoriaDTO> ConvetCategoriasToDTOByID(int id) => await 
+                                                (From 
+                                                    select)
+
         public static async Task<IEnumerable<ProdutoDTO>> ConvertProdutoToDTO(this IEnumerable<Produto> produtos)
         {
             var produtoList = await Task.FromResult(produtos.ToList());
@@ -48,7 +52,7 @@ namespace BlazorShop.API.Mappings
             });
 
         }
-        public static async Task<IEnumerable<CarrinhoItemDTO>> ConvertCarrinhoItemDTO(this IEnumerable<CarrinhoItem> carrinhoItens, IEnumerable<Produto> produtos)
+        public static async Task<IEnumerable<CarrinhoItemDTO>> ConvertCarrinhoItemToDTO(this IEnumerable<CarrinhoItem> carrinhoItens, IEnumerable<Produto> produtos)
         {
             var produtosList = await Task.FromResult(produtos.ToList());
 
@@ -66,10 +70,12 @@ namespace BlazorShop.API.Mappings
                         CarrinhoId = carrinhoItem.CarrinhoId,
                         Quantidade = carrinhoItem.Quantidade,
                         PrecoTotal = (produto.Preco * carrinhoItem.Quantidade)
-                    }).ToList();
+                    }
+                    ).ToList()
+                    ;
         }
 
-        public static async Task<CarrinhoItemDTO> ConvertCarrinhoItemDTO(this CarrinhoItem carrinhoitens, Produto produtos) {
+        public static async Task<CarrinhoItemDTO> ConvertCarrinhoItemToDTO(this CarrinhoItem carrinhoitens, Produto produtos) {
             return await Task.FromResult(
                 new CarrinhoItemDTO
                 {
