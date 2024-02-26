@@ -16,8 +16,10 @@ namespace BlazorShop.API.Controllers
         {
             _repository = repository;
         }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoriaDTO>>>GetItens(){
+        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetItens()
+        {
 
             try
             {
@@ -26,19 +28,21 @@ namespace BlazorShop.API.Controllers
                     return Ok("[]");
                 else
                 {
-                    return Ok(categoria.ConvetCategoriasToDTO());
+                    return Ok(categoria.ConvertCategoriasToDTO());
                 }
 
             }
             catch (Exception)
             {
-               return StatusCode(StatusCodes.Status500InternalServerError, " Erro interno no Servidor,Erro ao obter ConvetCategoriasToDTO() ");
+                return StatusCode(StatusCodes.Status500InternalServerError, " Erro interno no Servidor,Erro ao obter ConvetCategoriasToDTO() ");
             }
-        
+
         }
 
         [HttpGet]
-        public async Task<ActionResult<CategoriaDTO>>GetItensById(int Id) {
+        [Route("{id: int}")]
+        public async Task<ActionResult<CategoriaDTO>> GetItensById(int Id)
+        {
 
             try
             {
@@ -46,15 +50,13 @@ namespace BlazorShop.API.Controllers
                 if (categoria is null)
                     return Ok("[]");
                 else
-                    return Ok(categoria);      
+                    return Ok(categoria);
             }
             catch (Exception)
             {
-
-                throw;
+                return StatusCode(StatusCodes.Status500InternalServerError, " Erro interno no Servidor,Erro ao obter ConvetCategoriasToDTOById() ");
             }
-            
-        }
 
+        }
     }
 }
