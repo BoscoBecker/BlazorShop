@@ -1,12 +1,15 @@
-﻿using BlazorShop.API.Entities;
+﻿using BlazorShop.API.Context;
+using BlazorShop.API.Entities;
 using BlazorShop.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
 namespace BlazorShop.API.Mappings
 {
     public static class MappingsDTO
     {
-        public static async Task<IEnumerable<CategoriaDTO>> ConvetCategoriasToDTO(this IEnumerable<Categoria> categorias)
+
+        public static async Task<IEnumerable<CategoriaDTO>> ConvertCategoriasToDTO(this IEnumerable<Categoria> categorias)
         {
             var categoriasList = await Task.FromResult(categorias.ToList());
             return categoriasList.Select(
@@ -19,9 +22,23 @@ namespace BlazorShop.API.Mappings
 
         }
 
-        public static async Task<CategoriaDTO> ConvetCategoriasToDTOByID(int id) => await 
-                                                (From 
-                                                    select)
+        public static async Task<CategoriaDTO> ConvertCategoriasToDTOByID(int id)
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                Categoria categoria = await dbContext.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+                if (categoria != null)
+                {
+                    return new CategoriaDTO
+                    {
+                        Id = categoria.Id,
+                        Nome = categoria.Nome,
+                        IconCss = categoria.IconCss
+                    };
+                }
+                else { return null; }
+            }
+        }
 
         public static async Task<IEnumerable<ProdutoDTO>> ConvertProdutoToDTO(this IEnumerable<Produto> produtos)
         {
